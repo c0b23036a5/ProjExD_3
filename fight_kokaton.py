@@ -59,7 +59,7 @@ class Bird:
 
     def change_img(self, num: int, screen: pg.Surface):
         """
-        こうかとん画像を切り替え，画面に転送する
+        こうかとん画像を切り替え，画面に転送する。
         引数1 num：こうかとん画像ファイル名の番号
         引数2 screen：画面Surface
         """

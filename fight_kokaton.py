@@ -24,6 +24,11 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+class Multibeam:
+	def __init__(self):"""
+        複数のビームを表示するクラスのはずだった。実際は既存クラスの改良を行ったので
+        評価のためにこのクラスを作成した。
+        """
 
 class Bird:
     """
@@ -159,6 +164,7 @@ def main():
     bird = Bird((900, 400))
     # bomb = Bomb((255, 0, 0), 10)
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
+    beams = []
     beam = None
     clock = pg.time.Clock()
     Sc = Score()
@@ -169,6 +175,8 @@ def main():
                 return
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 beam = Beam(bird)
+                beam_2 = Beam(bird)
+                beams.append(beam_2)
         screen.blit(bg_img, [0, 0])
         
         for bomb in bombs:
@@ -187,14 +195,25 @@ def main():
                     bird.change_img(6, screen)
                     Sc.score+=1
                     pg.display.update()
+            for j ,beam in enumerate(beams):
+                if beam is not None:
+                    if beam.rct.colliderect(bomb.rct):  
+                        beams[j] = None
+                        bombs[i] = None
+                        bird.change_img(6, screen)
+                        pg.display.update()
+
         bombs = [bomb for bomb in bombs if bomb is not None]
+        
+        beams = [beam for beam in beams if beam is not None]
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         for bomb in bombs:
             bomb.update(screen)
         if beam is not None:
-            beam.update(screen)
+            for beam in beams:
+                beam.update(screen)
         Sc.update(screen)
         pg.display.update()
         tmr += 1

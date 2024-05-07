@@ -21,6 +21,8 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+
+
 class Bird:
     """
     ゲームキャラクター（こうかとん）に関するクラス
@@ -135,6 +137,7 @@ def main():
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((900, 400))
     bomb = Bomb((255, 0, 0), 10)
+    
     beam = None
     clock = pg.time.Clock()
     tmr = 0
@@ -151,9 +154,11 @@ def main():
         if bomb is not None:
             if bird.rct.colliderect(bomb.rct):
                 # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
-                bird.change_img(8, screen)
+                fonto = pg.font.Font(None, 80)
+                txt = fonto.render("Game Over", True, (255, 0, 0))
+                screen.blit(txt, [WIDTH/2-150, HEIGHT/2])
                 pg.display.update()
-                time.sleep(1)
+                time.sleep(5)
                 return
         if not (beam is None or bomb is None):
             if beam.rct.colliderect(bomb.rct):  # ビームと爆弾が衝突したら

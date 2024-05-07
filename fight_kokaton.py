@@ -84,6 +84,10 @@ class Bird:
             self.img = __class__.imgs[tuple(sum_mv)]
         screen.blit(self.img, self.rct)
 
+class Explosion:
+	def __init__(self):"""
+        爆発エフェクトの表示をするクラス未完成です
+        """
 
 class Bomb:
     """

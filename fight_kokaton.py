@@ -56,6 +56,7 @@ class Bird:
         self.img = __class__.imgs[(+5, 0)]
         self.rct: pg.Rect = self.img.get_rect()
         self.rct.center = xy
+        self.dire=(+5,0)
 
     def change_img(self, num: int, screen: pg.Surface):
         """
@@ -82,6 +83,8 @@ class Bird:
             self.rct.move_ip(-sum_mv[0], -sum_mv[1])
         if not (sum_mv[0] == 0 and sum_mv[1] == 0):
             self.img = __class__.imgs[tuple(sum_mv)]
+        if sum_mv is not [0,0]:
+            self.dire=sum_mv
         screen.blit(self.img, self.rct)
 
 
@@ -151,6 +154,12 @@ class Score:
         screen.blit(self.img,(self.x,self.y))
         screen.blit(self.img_up,(self.x+100,self.y))
 
+class Direction:
+	def __init__(self):"""
+    向きに応じたビームを表示するクラスのはずだった。
+    実際には、演習課題2はBirdクラスとBeamクラスの改良なので
+    必要なかった。
+    """
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")

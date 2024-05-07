@@ -124,7 +124,7 @@ class Bomb:
 class Beam:
     def __init__(self, bird: Bird):
         """
-        あとでかく
+        こうかとんが吐き出すビームを表示するためのクラス
         """
         self.img = pg.transform.rotozoom(pg.image.load("fig/beam.png"), 0, 2.0)  # ビーム画像Surface
         self.rct: pg.Rect = self.img.get_rect()  # ビーム画像Rect
@@ -151,6 +151,7 @@ class Score:
         self.score= 0
         self.img = self.fonto.render("スコア：",0,self.blue)
         self.x ,self.y= 100 ,HEIGHT-50
+
     def update(self,screen):
         self.img_up = self.fonto.render(str(self.score),0,self.blue)
         screen.blit(self.img,(self.x,self.y))
@@ -169,6 +170,7 @@ def main():
     clock = pg.time.Clock()
     Sc = Score()
     tmr = 0
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -209,11 +211,14 @@ def main():
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
+
         for bomb in bombs:
             bomb.update(screen)
+        
         if beam is not None:
             for beam in beams:
                 beam.update(screen)
+        
         Sc.update(screen)
         pg.display.update()
         tmr += 1
